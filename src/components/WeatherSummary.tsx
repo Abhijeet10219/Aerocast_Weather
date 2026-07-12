@@ -230,7 +230,7 @@ export default function WeatherSummary({
         </div>
 
         {/* Dynamic Advisory banner */}
-        <div className="mt-4 sm:mt-5 p-3 bg-white/5 backdrop-blur-md rounded-xl sm:rounded-2xl border border-white/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 text-xs text-sky-200">
+        <div className="mt-4 sm:mt-5 p-3 bg-white/5 backdrop-blur-md rounded-xl sm:rounded-2xl border border-white/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 text-xs text-slate-800 dark:text-sky-200">
           <span className="flex items-center gap-2">
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>

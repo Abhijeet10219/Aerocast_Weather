@@ -35,3 +35,7 @@
   </script>
   ```
   This creates a configurable and writable `fetch` descriptor that routes any assignment to a local variable `currentFetch` rather than throwing, successfully preserving standard application behavior.
+
+## Git & Identity Configurations
+- **Correct User Email**: When setting up Git config for user `Abhijeet10219`, the correct associated email is `abhijeet10219@gmail.com`. Do not assume other email patterns.
+

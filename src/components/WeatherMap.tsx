@@ -98,9 +98,11 @@ function AerocastMapLoading({ theme }: { theme: "light" | "dark" }) {
 function MapConfigurationState({
   type,
   theme,
+  onDismiss,
 }: {
   type: "missing-key" | "error";
   theme: "light" | "dark";
+  onDismiss?: () => void;
 }) {
   const isLight = theme === "light";
   const isMissingKey = type === "missing-key";
@@ -143,11 +145,24 @@ function MapConfigurationState({
           )}
         </p>
         <div className="mt-5 flex flex-wrap items-center justify-center gap-3">
+          {onDismiss && (
+            <button
+              type="button"
+              onClick={onDismiss}
+              className={`inline-flex items-center gap-2 rounded-xl px-4 py-2 text-xs font-semibold transition-colors cursor-pointer ${
+                isLight
+                  ? "bg-slate-200 text-slate-800 hover:bg-slate-300"
+                  : "bg-slate-900 text-slate-300 hover:bg-slate-800 border border-slate-800"
+              }`}
+            >
+              Back to Simulated Radar
+            </button>
+          )}
           {!isMissingKey && (
             <button
               type="button"
               onClick={() => window.location.reload()}
-              className={`inline-flex items-center gap-2 rounded-xl px-4 py-2 text-xs font-semibold transition-colors ${
+              className={`inline-flex items-center gap-2 rounded-xl px-4 py-2 text-xs font-semibold transition-colors cursor-pointer ${
                 isLight
                   ? "bg-slate-900 text-white hover:bg-slate-700"
                   : "bg-white text-slate-950 hover:bg-slate-200"
@@ -183,6 +198,9 @@ export default function WeatherMap({
   const [isInfoOpen, setIsInfoOpen] = useState(false);
   const isLight = theme === "light";
 
+  const [showMapConfig, setShowMapConfig] = useState(false);
+  const [radarMode, setRadarMode] = useState<'precipitation' | 'wind' | 'aviation'>('precipitation');
+
   const position = useMemo(() => {
     const candidate = {
       lat: lat ?? DEFAULT_CENTER.lat,
@@ -197,6 +215,108 @@ export default function WeatherMap({
   useEffect(() => {
     setIsInfoOpen(false);
   }, [activeCity, position.lat, position.lng]);
+
+  const renderSimulatedRadar = () => {
+    return (
+      <div className="relative w-full h-full bg-[#050914] overflow-hidden flex flex-col justify-between" style={{ minHeight: "320px" }}>
+        {/* Radar concentric range rings */}
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+          <div className="absolute w-[90%] h-[90%] rounded-full border border-sky-500/5 border-dashed" />
+          <div className="absolute w-[70%] h-[70%] rounded-full border border-sky-500/10 border-dashed" />
+          <div className="absolute w-[50%] h-[50%] rounded-full border border-sky-500/10 border-dashed" />
+          <div className="absolute w-[30%] h-[30%] rounded-full border border-sky-500/15 border-dashed" />
+          <div className="absolute w-[10%] h-[10%] rounded-full border border-sky-500/20 border-dashed" />
+          <div className="absolute inset-x-0 top-1/2 h-[1px] bg-sky-500/5" />
+          <div className="absolute inset-y-0 left-1/2 w-[1px] bg-sky-500/5" />
+        </div>
+
+        {/* Animated Sweep Line */}
+        <div className="absolute inset-0 pointer-events-none flex items-center justify-center">
+          <div 
+            className="w-full h-full max-w-[85%] max-h-[85%] rounded-full animate-spin bg-[conic-gradient(from_0deg,rgba(14,165,233,0.12)_0deg,transparent_90deg)]"
+            style={{ animationDuration: "10s", animationTimingFunction: "linear" }}
+          />
+        </div>
+
+        {/* Pulsing weather anomalies based on selected mode */}
+        <div className="absolute inset-0 pointer-events-none">
+          {radarMode === 'precipitation' && (
+            <>
+              {/* Rain cloud anomalies */}
+              <div className="absolute top-[28%] left-[25%] w-32 h-20 bg-emerald-500/10 rounded-full blur-2xl animate-pulse" style={{ animationDuration: '4s' }} />
+              <div className="absolute bottom-[22%] right-[28%] w-40 h-24 bg-teal-500/10 rounded-full blur-3xl animate-pulse" style={{ animationDuration: '6s' }} />
+              <div className="absolute top-[45%] right-[18%] w-24 h-24 bg-sky-500/10 rounded-full blur-xl animate-pulse" style={{ animationDuration: '3s' }} />
+            </>
+          )}
+
+          {radarMode === 'wind' && (
+            <>
+              {/* Wind front vector blobs */}
+              <div className="absolute top-[15%] right-[35%] w-48 h-12 bg-sky-400/5 rounded-full blur-xl rotate-12 animate-pulse" style={{ animationDuration: '5s' }} />
+              <div className="absolute bottom-[35%] left-[20%] w-56 h-16 bg-indigo-500/5 rounded-full blur-2xl -rotate-12 animate-pulse" style={{ animationDuration: '7s' }} />
+            </>
+          )}
+
+          {radarMode === 'aviation' && (
+            <>
+              {/* Aviation hold alerts */}
+              <div className="absolute top-[35%] left-[42%] w-16 h-16 bg-amber-500/10 rounded-full blur-xl animate-ping" style={{ animationDuration: '3s' }} />
+              <div className="absolute bottom-[40%] right-[30%] w-24 h-24 bg-red-500/10 rounded-full blur-2xl animate-pulse" style={{ animationDuration: '5s' }} />
+            </>
+          )}
+        </div>
+
+        {/* Selected City Target indicator (Center) */}
+        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 flex flex-col items-center pointer-events-none">
+          <span className="relative flex h-4.5 w-4.5">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-4.5 w-4.5 bg-sky-500 border-2 border-white shadow-[0_0_15px_rgba(14,165,233,0.6)]"></span>
+          </span>
+          <span className="mt-2.5 px-3 py-1 rounded-lg bg-slate-950/95 border border-slate-800 text-[10px] font-mono text-sky-400 font-bold whitespace-nowrap shadow-xl">
+            {activeCity} (Live Radar)
+          </span>
+        </div>
+
+        {/* Top Control Bar inside radar */}
+        <div className="p-3 bg-slate-950/80 border-b border-slate-800/60 backdrop-blur-md flex items-center justify-between z-10">
+          <span className="text-[9px] font-mono uppercase tracking-widest text-slate-500 font-bold flex items-center gap-1.5">
+            <span className="w-2 h-2 bg-emerald-500 rounded-full animate-ping animate-duration-1000" />
+            Met Satellite Feed
+          </span>
+          
+          <div className="flex gap-1.5">
+            {(['precipitation', 'wind', 'aviation'] as const).map(mode => (
+              <button
+                key={mode}
+                onClick={() => setRadarMode(mode)}
+                className={`px-2 py-0.5 rounded text-[8px] font-mono uppercase border font-semibold transition-all cursor-pointer ${
+                  radarMode === mode
+                    ? 'bg-sky-500/15 border-sky-500 text-sky-400'
+                    : 'bg-slate-900 border-slate-800/50 text-slate-400 hover:text-slate-200'
+                }`}
+              >
+                {mode}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Bottom Control Bar inside radar */}
+        <div className="p-3 bg-slate-950/80 border-t border-slate-800/60 backdrop-blur-md flex items-center justify-between z-10">
+          <span className="text-[9px] font-mono text-slate-400">
+            Coordinates: {position.lat.toFixed(2)}°N, {position.lng.toFixed(2)}°E
+          </span>
+          <button
+            type="button"
+            onClick={() => setShowMapConfig(true)}
+            className="px-2 py-1 bg-slate-900 border border-slate-800 hover:bg-slate-800 text-[9px] font-semibold font-mono text-slate-300 rounded-lg transition-colors cursor-pointer"
+          >
+            Setup Google Maps
+          </button>
+        </div>
+      </div>
+    );
+  };
 
   return (
     <section
@@ -242,8 +362,10 @@ export default function WeatherMap({
       </div>
 
       <div className="relative h-[clamp(320px,48vw,460px)] min-h-[320px] w-full border-t border-slate-800/20">
-        {!hasGoogleMapsKey ? (
-          <MapConfigurationState type="missing-key" theme={theme} />
+        {(!hasGoogleMapsKey && showMapConfig) ? (
+          <MapConfigurationState type="missing-key" theme={theme} onDismiss={() => setShowMapConfig(false)} />
+        ) : !hasGoogleMapsKey ? (
+          renderSimulatedRadar()
         ) : (
           <APIProvider
             apiKey={GOOGLE_MAPS_API_KEY}

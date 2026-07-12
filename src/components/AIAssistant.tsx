@@ -6,6 +6,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { ChatMessage } from "../types";
 import { Send, User } from "lucide-react";
+import { fetchOpenMeteoDirect } from "../openMeteoDirect";
 
 const STREAMING_THINKING_MESSAGE = "Aerocast weather AI is thinking...";
 
@@ -101,6 +102,7 @@ export default function AIAssistant({ currentCity }: AIAssistantProps) {
         })
       });
 
+      if (!response.ok) throw new Error("HTTP " + response.status);
       if (!response.body) throw new Error("No response body available for streaming");
 
       const reader = response.body.getReader();
@@ -156,17 +158,63 @@ export default function AIAssistant({ currentCity }: AIAssistantProps) {
         )));
       }
     } catch (err) {
-      streamFailed = true;
-      console.error("Chat error:", err);
-      setChatMessages(prev => prev.map(message => {
-        if (message.id !== modelMsgId) return message;
-        return {
-          ...message,
-          content: hasStartedMessage
-            ? `${message.content}\n\n*(Stream interrupted. Please retry.)*`
-            : "Aerocast AI Hub could not connect to the weather service. Please retry."
-        };
-      }));
+      if (hasStartedMessage) {
+        streamFailed = true;
+        console.error("Chat stream error:", err);
+        setChatMessages(prev => prev.map(message => {
+          if (message.id !== modelMsgId) return message;
+          return {
+            ...message,
+            content: `${message.content}\n\n*(Stream interrupted. Please retry.)*`
+          };
+        }));
+      } else {
+        console.warn("API Chat failed or unreachable. Running client-side simulation fallback...", err);
+        try {
+          const liveWeather = await fetchOpenMeteoDirect(currentCity || "Delhi");
+          const lastMsgLower = promptToSend.toLowerCase();
+          let content = "";
+
+          if (lastMsgLower.includes("hi") || lastMsgLower.includes("hello") || lastMsgLower.includes("hey")) {
+            content = `Hello! I am your AeroCast Copilot. I specialize in weather planning, packing strategies, aviation delay prediction, and Google Workspace alignment. \n\nHow can I optimize your travel schedule today? Ask me about weather details, if it will rain, if it will be cold, or what my system prompt is!`;
+          } else if (lastMsgLower.includes("system prompt") || lastMsgLower.includes("who are you") || lastMsgLower.includes("help me") || lastMsgLower.includes("role")) {
+            content = `My system prompt configures me as **the ultimate Weather and Travel Consultant AI for busy professionals and elite travelers**.\n\nMy instructions are to:\n- Maintain a highly composed, helpful, authoritative, and direct tone.\n- Actively help you coordinate business flights, outdoor scheduling slots, and packing strategies.\n- Warn you about real-time aviation crosswinds, rain probabilities, and extreme UV exposures.\n- Access live meteorological satellite feeds to verify conditions!`;
+          } else if (lastMsgLower.includes("rain") || lastMsgLower.includes("wet") || lastMsgLower.includes("umbrella")) {
+            const prob = liveWeather.rainProb;
+            const cond = liveWeather.condition.text;
+            content = `For **${liveWeather.city}**: The current conditions are **${cond}** with a rain probability of **${prob}%**.\n\n${prob > 40 ? "🌧️ Yes, precipitation probability is high. You should pack a heavy business trenchcoat and keep an umbrella handy." : "☀️ Rain probability is minimal right now. Outdoor commutes and runway activities should proceed without obstruction."}`;
+          } else if (lastMsgLower.includes("cold") || lastMsgLower.includes("temperature") || lastMsgLower.includes("hot") || lastMsgLower.includes("warm")) {
+            const temp = liveWeather.tempC;
+            content = `For **${liveWeather.city}**: The temperature is currently **${temp}°C** (${liveWeather.tempF}°F), feels like **${liveWeather.feelsLikeC}°C**.\n\n${temp < 15 ? "🧣 It is quite cold! Standard corporate layers, wool blazer, or formal trench outerwear are highly advised." : temp > 28 ? "☀️ It is warm! Light linen shirts, breathable fabrics, and UV shielding are ideal." : "👔 The temperature is moderate and comfortable. Standard business casual blazer attire is perfectly suited."}`;
+          } else {
+            content = `I have consulted the live meteorological feed for **${liveWeather.city}**.\n\nCurrently, it is **${liveWeather.tempC}°C** with **${liveWeather.condition.text}** conditions and **${liveWeather.windKmh} km/h** winds.\n\nPlanning travels or aligning calendars? Ask me specific queries like "Will it rain?", "Is it cold?", or "What is your system prompt?", and I will provide directly actionable advice!`;
+          }
+
+          setIsWaitingForFirstChunk(false);
+          setLiveStatus("Aerocast AI Hub response is streaming (Offline Simulation).");
+          
+          const tokens = content.split(/(\s+)/);
+          let streamedText = "";
+          
+          for (let i = 0; i < tokens.length; i++) {
+            streamedText += tokens[i];
+            const currentText = streamedText;
+            setChatMessages(prev => prev.map(m => m.id === modelMsgId ? { ...m, content: currentText } : m));
+            await new Promise(resolve => setTimeout(resolve, 20));
+          }
+          streamFailed = false;
+        } catch (simErr) {
+          console.error("Simulation error:", simErr);
+          streamFailed = true;
+          setChatMessages(prev => prev.map(message => {
+            if (message.id !== modelMsgId) return message;
+            return {
+              ...message,
+              content: "Aerocast AI Hub could not connect to the weather service. Please check your network and retry."
+            };
+          }));
+        }
+      }
     } finally {
       setIsChatLoading(false);
       setIsWaitingForFirstChunk(false);

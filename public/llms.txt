@@ -1,0 +1,16 @@
+# Aerocast
+
+Aerocast is a live weather and travel-intelligence dashboard for professionals and travelers.
+
+## Core capabilities
+
+- Live current, hourly, and 7-day weather from Open-Meteo
+- Air-quality and astronomy context
+- Interactive Google Maps centered on the selected city
+- Weather-aware itinerary and workspace planning
+- Aerocast AI Hub for conversational weather guidance
+
+## Data policy
+
+Weather values shown in the dashboard come from the live Open-Meteo forecast and air-quality APIs. Aerocast does not substitute fabricated weather when the provider is unavailable.
+

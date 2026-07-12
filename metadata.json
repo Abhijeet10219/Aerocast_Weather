@@ -1,0 +1,6 @@
+{
+  "name": "AeroCast Weather Portal",
+  "description": "Premium full-stack weather, travel logistics, and Google Workspace sync portal designed for busy corporate professionals and frequent flyers.",
+  "requestFramePermissions": ["geolocation"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

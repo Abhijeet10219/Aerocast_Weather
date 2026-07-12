@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#020617" />
+    <meta name="description" content="Aerocast combines live Open-Meteo forecasts, interactive Google Maps, astronomy insights, and AI-assisted travel planning in one weather dashboard." />
+    <meta name="robots" content="index, follow" />
+    <title>Aerocast | Live Weather & Travel Intelligence</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <script>
+      (function() {
+        try {
+          const originalFetch = window.fetch || (typeof globalThis !== 'undefined' && globalThis.fetch);
+          if (originalFetch) {
+            let currentFetch = originalFetch;
+            const descriptor = {
+              get() {
+                return currentFetch;
+              },
+              set(val) {
+                currentFetch = val;
+              },
+              configurable: true,
+              enumerable: true
+            };
+            if (typeof window !== 'undefined') {
+              Object.defineProperty(window, 'fetch', descriptor);
+            }
+            if (typeof globalThis !== 'undefined') {
+              Object.defineProperty(globalThis, 'fetch', descriptor);
+            }
+          }
+        } catch (e) {
+          console.warn("Failed to patch fetch getter/setter:", e);
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

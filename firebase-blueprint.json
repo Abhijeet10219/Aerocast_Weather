@@ -1,0 +1,32 @@
+{
+  "collections": {
+    "users": {
+      "description": "User specific personalization settings, units, dashboard layout profile, and customized home screen widgets",
+      "fields": {
+        "userId": "string (matches Auth UID)",
+        "tempUnit": "string ('C' | 'F')",
+        "windUnit": "string ('kmh' | 'mph')",
+        "dashboardProfile": "string ('Professional' | 'Traveler' | 'Minimalist')",
+        "theme": "string ('dark' | 'light' | 'emerald' | 'ocean' | 'nordic')",
+        "enabledWidgets": "array of strings",
+        "smartTriggers": "array of objects {id, name, metric, operator, value, message, isActive}"
+      }
+    },
+    "itineraries": {
+      "description": "User created travel planners, comparison destinations, flight delay risk, packing lists and custom outdoor schedules",
+      "fields": {
+        "id": "string",
+        "userId": "string",
+        "destinationCity": "string",
+        "startDate": "string (YYYY-MM-DD)",
+        "endDate": "string (YYYY-MM-DD)",
+        "flightNumber": "string (optional)",
+        "flightDelayRisk": "string ('Low' | 'Medium' | 'High')",
+        "flightDelayReason": "string (optional)",
+        "packingList": "array of objects {id, name, category, checked}",
+        "activities": "array of objects {id, name, time, date, isOutdoor, weatherWarning}",
+        "aiNotes": "string (optional)"
+      }
+    }
+  }
+}

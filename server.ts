@@ -1427,6 +1427,10 @@ app.post("/api/ai/itinerary", async (req, res) => {
 
 // ----------------- Vite Integration & Server Startup -----------------
 async function configureServer() {
+  if (process.env.VERCEL) {
+    return;
+  }
+
   if (process.env.NODE_ENV !== "production") {
     const vite = await createViteServer({
       server: { middlewareMode: true },

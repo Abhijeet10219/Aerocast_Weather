@@ -4,19 +4,19 @@
  */
 
 import React, { useState } from "react";
-import { 
-  WeatherData, 
-  SevereAlert 
+import {
+  WeatherData,
+  SevereAlert
 } from "../types";
-import { 
-  Search, 
-  Wind, 
-  Droplets, 
-  Sun, 
-  AlertOctagon, 
-  Compass, 
-  Eye, 
-  Gauge, 
+import {
+  Search,
+  Wind,
+  Droplets,
+  Sun,
+  AlertOctagon,
+  Compass,
+  Eye,
+  Gauge,
   CloudRain,
   ExternalLink,
   ChevronDown,
@@ -41,12 +41,12 @@ interface WeatherSummaryProps {
   isLoading: boolean;
 }
 
-export default function WeatherSummary({ 
-  weather, 
-  tempUnit, 
-  windUnit, 
-  onCitySearch, 
-  isLoading 
+export default function WeatherSummary({
+  weather,
+  tempUnit,
+  windUnit,
+  onCitySearch,
+  isLoading
 }: WeatherSummaryProps) {
   const [searchVal, setSearchVal] = useState("");
   const [expandedAlert, setExpandedAlert] = useState<string | null>(null);
@@ -116,9 +116,9 @@ export default function WeatherSummary({
           {weather.alerts.map((alert) => {
             const isExpanded = expandedAlert === alert.id;
             return (
-              <div 
+              <div
                 key={alert.id}
-                id={`alert-card-${alert.id}`} 
+                id={`alert-card-${alert.id}`}
                 className="bg-amber-500/10 border border-amber-500/30 rounded-xl p-4 transition-all hover:bg-amber-500/15"
               >
                 <div className="flex items-start justify-between">
@@ -136,7 +136,7 @@ export default function WeatherSummary({
                       <h4 className="text-sm font-semibold text-slate-100 mt-1.5">{alert.headline}</h4>
                     </div>
                   </div>
-                  <button 
+                  <button
                     id={`alert-toggle-${alert.id}`}
                     onClick={() => setExpandedAlert(isExpanded ? null : alert.id)}
                     className="p-1 text-amber-400 hover:text-amber-300 rounded transition-colors"
@@ -182,7 +182,7 @@ export default function WeatherSummary({
                 {Math.abs(weather.lat).toFixed(2)}°{weather.lat >= 0 ? "N" : "S"}, {Math.abs(weather.lon).toFixed(2)}°{weather.lon >= 0 ? "E" : "W"}
               </span>
             </div>
-            
+
             <div className="flex items-baseline gap-3 sm:gap-4">
               <span className="text-5xl sm:text-6xl md:text-7xl font-extrabold tracking-tighter text-white">
                 {getTemp(weather.tempC, weather.tempF)}
@@ -230,18 +230,18 @@ export default function WeatherSummary({
         </div>
 
         {/* Dynamic Advisory banner */}
-        <div className="mt-4 sm:mt-5 p-3 bg-white/5 backdrop-blur-md rounded-xl sm:rounded-2xl border border-white/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 text-xs text-slate-800 dark:text-sky-200">
+        <div className="mt-4 sm:mt-5 p-3 bg-white/5 backdrop-blur-md rounded-xl sm:rounded-2xl border border-white/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 text-xs text-sky-200">
           <span className="flex items-center gap-2">
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-sky-500"></span>
             </span>
             <span>
-              {weather.precipitationMm > 0 
-                ? "💼 Umbrella recommended. Plan client meetings indoors." 
-                : weather.windKmh > 25 
-                ? "✈️ Travel notice: Strong winds might delay executive regional flights."
-                : "🌤️ Optimal conditions for client luncheons & outdoor commutes."}
+              {weather.precipitationMm > 0
+                ? "💼 Umbrella recommended. Plan client meetings indoors."
+                : weather.windKmh > 25
+                  ? "✈️ Travel notice: Strong winds might delay executive regional flights."
+                  : "🌤️ Optimal conditions for client luncheons & outdoor commutes."}
             </span>
           </span>
           <span className="font-mono text-[10px] uppercase bg-sky-500/10 px-2 py-0.5 rounded border border-sky-500/20 text-sky-400 font-semibold shrink-0">
@@ -279,7 +279,7 @@ export default function WeatherSummary({
             </div>
           </div>
           <p className="text-[11px] text-slate-400 leading-normal">
-            {weather.aqi.label === "Good" 
+            {weather.aqi.label === "Good"
               ? "Perfect weather for standard outdoor travel and corporate activities."
               : "Sensitive individuals should wear clean masks or reduce outdoor duration."}
           </p>
@@ -305,7 +305,7 @@ export default function WeatherSummary({
             </div>
           </div>
           <p className="text-[11px] text-slate-400 leading-normal">
-            {weather.windKmh > 30 
+            {weather.windKmh > 30
               ? "🚨 Caution: High potential for airline disruptions, flight rescheduling or crosswind hazards."
               : "✈️ Aero status: Optimal runway and take-off conditions for local commercial hubs."}
           </p>
@@ -324,14 +324,14 @@ export default function WeatherSummary({
             <span className="text-xs text-slate-500">out of 11+</span>
           </div>
           <div className="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
-            <div 
-              className="bg-amber-500 h-full rounded-full transition-all" 
+            <div
+              className="bg-amber-500 h-full rounded-full transition-all"
               style={{ width: `${Math.min(100, (weather.uvIndex / 11) * 100)}%` }}
             ></div>
           </div>
           <p className="text-[11px] text-slate-400 leading-normal">
-            {weather.uvIndex >= 6 
-              ? "🕴️ Apparel advice: UV is high. Apply block, wear shades, and shield in light business linens." 
+            {weather.uvIndex >= 6
+              ? "🕴️ Apparel advice: UV is high. Apply block, wear shades, and shield in light business linens."
               : "🕶️ Safe levels. No special protective formal layers or clothing required."}
           </p>
         </div>
@@ -349,7 +349,7 @@ export default function WeatherSummary({
             <span className="text-xs text-slate-500">daily volume</span>
           </div>
           <p className="text-[11px] text-slate-400 leading-normal">
-            {weather.rainProb > 60 
+            {weather.rainProb > 60
               ? "🌧️ Wet commute warning. Ensure travel itinerary coordinates outdoor schedules safely around rain windows."
               : "☀️ No rain expected. Perfect timing for walking to client centers or terminals."}
           </p>
@@ -368,7 +368,7 @@ export default function WeatherSummary({
             <span className="text-xs text-slate-500">horizontal sight</span>
           </div>
           <p className="text-[11px] text-slate-400 leading-normal">
-            {weather.visibilityKm < 5 
+            {weather.visibilityKm < 5
               ? "🌫️ Heavy smog/fog alert. High risk of runway takeoff holds or commuter traffic delays."
               : "🌟 Pristine visibility. Clear air allows perfect transit logistics and timing."}
           </p>
@@ -385,7 +385,7 @@ export default function WeatherSummary({
             <span className="text-xs text-slate-500">atm pressure</span>
           </div>
           <p className="text-[11px] text-slate-400 leading-normal">
-            {weather.pressureMb < 1009 
+            {weather.pressureMb < 1009
               ? "📉 Low pressure system. Storm weather, precipitation, or unstable winds will likely follow."
               : "📈 Steady High pressure system. Stable, calm, and predictable weather forecast pattern."}
           </p>

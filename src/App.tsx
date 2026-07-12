@@ -746,7 +746,7 @@ export default function App() {
   };
 
   return (
-    <div className={`min-h-screen font-sans flex flex-col antialiased transition-colors duration-300 ${
+    <div className={`min-h-screen font-sans flex flex-col antialiased transition-colors duration-300 w-full max-w-full overflow-x-hidden ${
       resolvedTheme === 'light' ? 'bg-slate-50 text-slate-900' : 'bg-[#020617] text-slate-200'
     }`}>
       <a
@@ -786,7 +786,7 @@ export default function App() {
       )}
 
       {/* Authenticated Main App Frame */}
-      <div id="main-app-layout" className="flex flex-col md:flex-row flex-1">
+      <div id="main-app-layout" className="flex flex-col md:flex-row flex-1 w-full min-w-0">
           
           <Sidebar 
             activeTab={activeTab} 
@@ -797,10 +797,10 @@ export default function App() {
             notificationsCount={settings.smartTriggers.filter(t => t.isActive).length}
           />
 
-          <main id="main-content" className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-6">
+          <main id="main-content" className="flex-1 overflow-y-auto overflow-x-hidden p-3 sm:p-4 md:p-6 space-y-4 sm:space-y-6 min-w-0 w-full">
             
             {/* Top Navigation / status bar */}
-            <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between pb-4 border-b border-slate-800/50">
+            <div className="flex flex-col gap-3 sm:gap-4 sm:flex-row sm:items-center sm:justify-between pb-4 border-b border-slate-800/50">
               <div>
                 <h2 className="text-xl font-bold tracking-tight text-white uppercase font-mono">
                   {activeTab === 'dashboard' ? `${activeCity} Intel` : activeTab.replace('_', ' ')}
@@ -811,7 +811,7 @@ export default function App() {
               </div>
 
               {/* Quick favorites swapper bar */}
-              <div className="flex items-center gap-2 overflow-x-auto pb-2 shrink-0 max-w-full -mx-4 px-4 sm:mx-0 sm:px-0 scrollbar-none">
+              <div className="flex items-center gap-2 overflow-x-auto pb-2 shrink-0 max-w-full scrollbar-none">
                 {favoriteCities.map((c) => (
                   <button
                     key={c.id}

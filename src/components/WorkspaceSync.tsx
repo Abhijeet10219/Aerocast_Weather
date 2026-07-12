@@ -77,7 +77,7 @@ export default function WorkspaceSync({
     <div id="workspace-sync-panel" className="space-y-6">
       
       {/* Workspace Connection Header Banner */}
-      <div className="bg-[#0B0F1A] border border-slate-800/50 rounded-3xl p-6 shadow-2xl relative overflow-hidden">
+      <div className="bg-[#0B0F1A] border border-slate-800/50 rounded-2xl sm:rounded-3xl p-3 sm:p-6 shadow-2xl relative overflow-hidden">
         <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-500/5 rounded-full blur-3xl -z-10"></div>
         
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6">
@@ -149,7 +149,7 @@ export default function WorkspaceSync({
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         
         {/* Calendar Events Overlays list */}
-        <div className="lg:col-span-7 bg-[#0B0F1A] border border-slate-800/50 rounded-3xl p-6 shadow-2xl space-y-4">
+        <div className="lg:col-span-7 bg-[#0B0F1A] border border-slate-800/50 rounded-2xl sm:rounded-3xl p-3 sm:p-6 shadow-2xl space-y-4">
           <div className="flex items-center justify-between">
             <div>
               <h3 className="text-sm font-semibold text-white tracking-tight flex items-center gap-1.5">
@@ -226,7 +226,7 @@ export default function WorkspaceSync({
         </div>
 
         {/* Google Tasks Lists & Rescheduling manager */}
-        <div className="lg:col-span-5 bg-[#0B0F1A] border border-slate-800/50 rounded-3xl p-6 shadow-2xl space-y-4">
+        <div className="lg:col-span-5 bg-[#0B0F1A] border border-slate-800/50 rounded-2xl sm:rounded-3xl p-3 sm:p-6 shadow-2xl space-y-4">
           <div>
             <h3 className="text-sm font-semibold text-white tracking-tight flex items-center gap-1.5">
               <CheckSquare className="w-4.5 h-4.5 text-sky-400" />

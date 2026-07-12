@@ -62,7 +62,7 @@ export default function Sidebar({
   return (
     <>
       {/* Mobile Top Navigation Header */}
-      <header className="w-full md:hidden sticky top-0 z-40 bg-[#0B0F1A] border-b border-slate-800/50 p-4 flex items-center justify-between text-slate-200">
+      <header className="md:hidden sticky top-0 z-40 bg-[#0B0F1A] border-b border-slate-800/50 p-4 flex items-center justify-between text-slate-200">
         <button
           type="button"
           aria-label="Open navigation menu"

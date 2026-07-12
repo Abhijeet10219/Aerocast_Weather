@@ -148,7 +148,7 @@ export default function TravelPlanner({
     <div id="travel-planner-panel" className="space-y-6">
       
       {/* City Hub Weather Comparison Grid */}
-      <div className="bg-[#0B0F1A] border border-slate-800/50 rounded-3xl p-6 shadow-2xl space-y-4">
+      <div className="bg-[#0B0F1A] border border-slate-800/50 rounded-2xl sm:rounded-3xl p-3 sm:p-6 shadow-2xl space-y-4">
         <div>
           <h3 className="text-sm font-semibold text-white tracking-tight flex items-center gap-1.5">
             <CloudSun className="w-4.5 h-4.5 text-sky-400" />
@@ -197,7 +197,7 @@ export default function TravelPlanner({
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         
         {/* Planner inputs */}
-        <div className="lg:col-span-5 bg-[#0B0F1A] border border-slate-800/50 rounded-3xl p-6 shadow-2xl space-y-4">
+        <div className="lg:col-span-5 bg-[#0B0F1A] border border-slate-800/50 rounded-2xl sm:rounded-3xl p-3 sm:p-6 shadow-2xl space-y-4">
           <div>
             <h3 className="text-sm font-semibold text-white tracking-tight flex items-center gap-1.5">
               <Compass className="w-4.5 h-4.5 text-sky-400" />
@@ -293,7 +293,7 @@ export default function TravelPlanner({
         <div className="lg:col-span-7 space-y-6">
           
           {/* Active generated itinerary text screen */}
-          <div className="bg-[#0B0F1A] border border-slate-800/50 rounded-3xl p-6 shadow-2xl min-h-[220px] flex flex-col relative">
+          <div className="bg-[#0B0F1A] border border-slate-800/50 rounded-2xl sm:rounded-3xl p-3 sm:p-6 shadow-2xl min-h-[220px] flex flex-col relative">
             <div className="flex items-center justify-between pb-3 border-b border-slate-800/50 mb-3">
               <span className="text-xs font-semibold text-slate-200">Active High-Thinking Plan</span>
               <span className="text-[10px] font-mono text-slate-500 flex items-center gap-1">
@@ -329,7 +329,7 @@ export default function TravelPlanner({
 
           {/* Interactive packing checklist */}
           {itineraries.length > 0 && (
-            <div className="bg-[#0B0F1A] border border-slate-800/50 rounded-3xl p-6 shadow-2xl space-y-4">
+            <div className="bg-[#0B0F1A] border border-slate-800/50 rounded-2xl sm:rounded-3xl p-3 sm:p-6 shadow-2xl space-y-4">
               <div>
                 <h4 className="text-xs font-semibold text-white uppercase tracking-wider font-mono flex items-center gap-1.5">
                   <Briefcase className="w-4 h-4 text-indigo-400" />

@@ -66,7 +66,7 @@ export default function SmartNotifications({
     <div id="smart-triggers-panel" className="grid grid-cols-1 lg:grid-cols-12 gap-6 text-slate-200">
       
       {/* Column 1: Rules & Custom Triggers Creator Form */}
-      <div className="lg:col-span-5 bg-[#0B0F1A] border border-slate-800/50 rounded-3xl p-6 shadow-2xl space-y-4">
+      <div className="lg:col-span-5 bg-[#0B0F1A] border border-slate-800/50 rounded-2xl sm:rounded-3xl p-3 sm:p-6 shadow-2xl space-y-4">
         <div>
           <h3 className="text-sm font-semibold text-white tracking-tight flex items-center gap-1.5">
             <Settings2 className="w-4.5 h-4.5 text-sky-400" />
@@ -159,7 +159,7 @@ export default function SmartNotifications({
       <div className="lg:col-span-7 space-y-6">
         
         {/* Module B: Active Trigger Rules lists (Full CRUD delete/toggle) */}
-        <div className="bg-[#0B0F1A] border border-slate-800/50 rounded-3xl p-6 shadow-2xl space-y-4">
+        <div className="bg-[#0B0F1A] border border-slate-800/50 rounded-2xl sm:rounded-3xl p-3 sm:p-6 shadow-2xl space-y-4">
           <div className="flex items-center justify-between">
             <div>
               <h3 className="text-sm font-semibold text-white tracking-tight flex items-center gap-1.5">

@@ -233,7 +233,7 @@ export default function AIAssistant({ currentCity }: AIAssistantProps) {
       </div>
       
       {/* Multi-turn Chat interface */}
-      <div className="w-full bg-[#0B0F1A] border border-slate-800/50 rounded-3xl p-6 flex flex-col h-[520px] shadow-2xl relative">
+      <div className="w-full bg-[#0B0F1A] border border-slate-800/50 rounded-2xl sm:rounded-3xl p-3 sm:p-6 flex flex-col h-[420px] sm:h-[520px] shadow-2xl relative min-w-0">
         <div className="flex items-center justify-between pb-4 border-b border-slate-800/50 mb-4">
           <div>
             <h3 className="text-sm font-semibold text-white tracking-tight flex items-center gap-1.5">

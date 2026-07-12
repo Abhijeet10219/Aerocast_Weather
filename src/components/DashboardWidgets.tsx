@@ -81,7 +81,7 @@ export default function DashboardWidgets({
       <div className="lg:col-span-7 space-y-6">
         
         {/* Module A: Profiles Selection */}
-        <div className="bg-[#0B0F1A] border border-slate-800/50 rounded-3xl p-6 shadow-2xl space-y-4">
+        <div className="bg-[#0B0F1A] border border-slate-800/50 rounded-2xl sm:rounded-3xl p-3 sm:p-6 shadow-2xl space-y-4">
           <div>
             <h3 className="text-sm font-semibold text-white tracking-tight flex items-center gap-1.5">
               <Layers className="w-4.5 h-4.5 text-sky-400" />
@@ -129,7 +129,7 @@ export default function DashboardWidgets({
         </div>
 
         {/* Module B: Custom Widgets Toggle switches */}
-        <div className="bg-[#0B0F1A] border border-slate-800/50 rounded-3xl p-6 shadow-2xl space-y-4">
+        <div className="bg-[#0B0F1A] border border-slate-800/50 rounded-2xl sm:rounded-3xl p-3 sm:p-6 shadow-2xl space-y-4">
           <div>
             <h3 className="text-sm font-semibold text-white tracking-tight flex items-center gap-1.5">
               <Settings className="w-4.5 h-4.5 text-sky-400" />
@@ -168,7 +168,7 @@ export default function DashboardWidgets({
       <div className="lg:col-span-5 space-y-6">
 
         {/* Dedicated theme preference, persisted by App to Firestore */}
-        <section className="bg-[#0B0F1A] border border-slate-800/50 rounded-3xl p-6 shadow-2xl space-y-4" aria-labelledby="theme-selector-title">
+        <section className="bg-[#0B0F1A] border border-slate-800/50 rounded-2xl sm:rounded-3xl p-3 sm:p-6 shadow-2xl space-y-4" aria-labelledby="theme-selector-title">
           <div>
             <h3 id="theme-selector-title" className="text-sm font-semibold text-white tracking-tight flex items-center gap-1.5">
               <Palette className="w-4.5 h-4.5 text-sky-400" aria-hidden="true" />
@@ -199,7 +199,7 @@ export default function DashboardWidgets({
         </section>
         
         {/* Module C: Imperial / Metric unit configurations */}
-        <div className="bg-[#0B0F1A] border border-slate-800/50 rounded-3xl p-6 shadow-2xl space-y-4">
+        <div className="bg-[#0B0F1A] border border-slate-800/50 rounded-2xl sm:rounded-3xl p-3 sm:p-6 shadow-2xl space-y-4">
           <div>
             <h3 className="text-sm font-semibold text-white tracking-tight flex items-center gap-1.5">
               <Thermometer className="w-4.5 h-4.5 text-sky-400" />
@@ -263,7 +263,7 @@ export default function DashboardWidgets({
         </div>
 
         {/* Module D: Pinned Favorite Hubs List */}
-        <div className="bg-[#0B0F1A] border border-slate-800/50 rounded-3xl p-6 shadow-2xl space-y-4">
+        <div className="bg-[#0B0F1A] border border-slate-800/50 rounded-2xl sm:rounded-3xl p-3 sm:p-6 shadow-2xl space-y-4">
           <div>
             <h3 className="text-sm font-semibold text-white tracking-tight flex items-center gap-1.5">
               <MapPin className="w-4.5 h-4.5 text-sky-400" />

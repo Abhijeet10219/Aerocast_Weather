@@ -59,7 +59,7 @@ export default function HelpGuides() {
     <div id="help-guides-panel" className="space-y-6 text-slate-200">
       
       {/* Onboarding Quick-Start cards */}
-      <div className="bg-[#0B0F1A] border border-slate-800/50 rounded-3xl p-6 shadow-2xl space-y-4">
+      <div className="bg-[#0B0F1A] border border-slate-800/50 rounded-2xl sm:rounded-3xl p-3 sm:p-6 shadow-2xl space-y-4">
         <div>
           <h3 className="text-sm font-semibold text-white tracking-tight flex items-center gap-1.5">
             <BookOpen className="w-4.5 h-4.5 text-sky-400" />
@@ -86,7 +86,7 @@ export default function HelpGuides() {
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* Travel safety tips */}
-        <div className="lg:col-span-6 bg-[#0B0F1A] border border-slate-800/50 rounded-3xl p-6 shadow-2xl space-y-4">
+        <div className="lg:col-span-6 bg-[#0B0F1A] border border-slate-800/50 rounded-2xl sm:rounded-3xl p-3 sm:p-6 shadow-2xl space-y-4">
           <div>
             <h3 className="text-sm font-semibold text-white tracking-tight flex items-center gap-1.5">
               <ShieldAlert className="w-4.5 h-4.5 text-amber-400 animate-pulse" />
@@ -106,7 +106,7 @@ export default function HelpGuides() {
         </div>
 
         {/* FAQs list */}
-        <div className="lg:col-span-6 bg-[#0B0F1A] border border-slate-800/50 rounded-3xl p-6 shadow-2xl space-y-4">
+        <div className="lg:col-span-6 bg-[#0B0F1A] border border-slate-800/50 rounded-2xl sm:rounded-3xl p-3 sm:p-6 shadow-2xl space-y-4">
           <div>
             <h3 className="text-sm font-semibold text-white tracking-tight flex items-center gap-1.5">
               <HelpCircle className="w-4.5 h-4.5 text-sky-400" />

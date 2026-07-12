@@ -175,7 +175,7 @@ export default function WeatherCharts({ hourly, daily, tempUnit, isLoading }: We
   };
 
   return (
-    <div id="weather-charts-card" className="bg-[#0B0F1A] border border-slate-800/50 rounded-3xl p-6 shadow-2xl">
+    <div id="weather-charts-card" className="bg-[#0B0F1A] border border-slate-800/50 rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-2xl min-w-0">
       {/* Chart Headers & Controls */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
         <div>
@@ -214,7 +214,7 @@ export default function WeatherCharts({ hourly, daily, tempUnit, isLoading }: We
       </div>
 
       {/* Chart Container */}
-      <div className="h-[320px] w-full">
+      <div className="h-[250px] sm:h-[320px] w-full min-w-0">
         {activeChartTab === 'hourly' ? (
           <ResponsiveContainer width="100%" height="100%">
             <AreaChart data={hourlyData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
@@ -265,7 +265,7 @@ export default function WeatherCharts({ hourly, daily, tempUnit, isLoading }: We
       </div>
 
       {/* Corporate Commute Optimization Legend */}
-      <div className="mt-4 pt-4 border-t border-slate-800/80 grid grid-cols-2 gap-4 text-xs text-slate-400">
+      <div className="mt-4 pt-4 border-t border-slate-800/80 grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs text-slate-400">
         <div className="flex items-start gap-2">
           <Briefcase className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
           <div>

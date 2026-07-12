@@ -88,7 +88,7 @@ export default function WeatherSummary({
   return (
     <div id="weather-summary-panel" className="space-y-6">
       {/* City Search Bar */}
-      <form onSubmit={handleSubmit} className="flex space-x-2">
+      <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-2 sm:space-x-2">
         <div className="relative flex-1">
           <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
           <input
@@ -96,7 +96,7 @@ export default function WeatherSummary({
             type="text"
             value={searchVal}
             onChange={(e) => setSearchVal(e.target.value)}
-            placeholder="Search corporate hubs or destinations (e.g., Delhi, Bengaluru, Mumbai)..."
+            placeholder="Search cities (e.g., Delhi, Mumbai)..."
             className="w-full pl-11 pr-4 py-3 bg-slate-900/50 border border-slate-800/50 rounded-xl focus:outline-none focus:border-sky-500/50 text-slate-100 placeholder-slate-400 text-sm transition-all shadow-inner"
           />
         </div>
@@ -168,27 +168,27 @@ export default function WeatherSummary({
       )}
 
       {/* Main Glassmorphic Current Weather Card */}
-      <div id="main-current-weather-card" className="bg-gradient-to-br from-sky-600/20 to-blue-900/10 border border-white/5 rounded-3xl p-8 relative overflow-hidden shadow-2xl">
-        <div className="absolute top-0 right-0 w-80 h-80 bg-sky-500/10 blur-[100px] rounded-full -z-10"></div>
-        <div className="absolute bottom-0 left-0 w-80 h-80 bg-indigo-500/5 blur-[100px] rounded-full -z-10"></div>
+      <div id="main-current-weather-card" className="bg-gradient-to-br from-sky-600/20 to-blue-900/10 border border-white/5 rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-8 relative overflow-hidden shadow-2xl">
+        <div className="absolute top-0 right-0 w-40 sm:w-80 h-40 sm:h-80 bg-sky-500/10 blur-[100px] rounded-full -z-10"></div>
+        <div className="absolute bottom-0 left-0 w-40 sm:w-80 h-40 sm:h-80 bg-indigo-500/5 blur-[100px] rounded-full -z-10"></div>
 
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 sm:gap-6">
           {/* Main Temperature & Info */}
-          <div className="space-y-2">
-            <div className="flex items-center space-x-2 text-slate-400 text-sm font-medium">
-              <MapPin className="w-4 h-4 text-sky-400" />
+          <div className="space-y-2 min-w-0">
+            <div className="flex items-center gap-2 text-slate-400 text-sm font-medium flex-wrap">
+              <MapPin className="w-4 h-4 text-sky-400 shrink-0" />
               <span className="text-slate-200">{weather.city}, {weather.country}</span>
-              <span className="text-xs px-2 py-0.5 bg-white/5 border border-white/10 text-slate-300 rounded-full font-mono">
+              <span className="text-[10px] px-1.5 py-0.5 bg-white/5 border border-white/10 text-slate-300 rounded-full font-mono hidden sm:inline">
                 {Math.abs(weather.lat).toFixed(2)}°{weather.lat >= 0 ? "N" : "S"}, {Math.abs(weather.lon).toFixed(2)}°{weather.lon >= 0 ? "E" : "W"}
               </span>
             </div>
             
-            <div className="flex items-baseline space-x-4">
-              <span className="text-6xl md:text-7xl font-extrabold tracking-tighter text-white">
+            <div className="flex items-baseline gap-3 sm:gap-4">
+              <span className="text-5xl sm:text-6xl md:text-7xl font-extrabold tracking-tighter text-white">
                 {getTemp(weather.tempC, weather.tempF)}
               </span>
-              <div className="space-y-0.5">
-                <span className="text-lg font-medium text-slate-200 block">{weather.condition.text}</span>
+              <div className="space-y-0.5 min-w-0">
+                <span className="text-base sm:text-lg font-medium text-slate-200 block truncate">{weather.condition.text}</span>
                 <span className="text-xs text-slate-400 block font-mono">
                   Feels like: <strong className="text-slate-300 font-semibold">{getTemp(weather.feelsLikeC, weather.feelsLikeF)}</strong>
                 </span>
@@ -197,7 +197,7 @@ export default function WeatherSummary({
           </div>
 
           {/* Quick Stats Grid */}
-          <div className="grid grid-cols-2 gap-4 w-full md:w-auto shrink-0 border-t md:border-t-0 md:border-l border-white/10 md:pl-6 pt-4 md:pt-0">
+          <div className="grid grid-cols-2 gap-3 sm:gap-4 w-full md:w-auto shrink-0 border-t md:border-t-0 md:border-l border-white/10 md:pl-6 pt-4 md:pt-0">
             <div className="flex items-center space-x-3 p-3 bg-slate-900/50 rounded-2xl border border-slate-800/50">
               <Wind className="w-5 h-5 text-sky-400" />
               <div>
@@ -230,7 +230,7 @@ export default function WeatherSummary({
         </div>
 
         {/* Dynamic Advisory banner */}
-        <div className="mt-5 p-3 bg-white/5 backdrop-blur-md rounded-2xl border border-white/10 flex items-center justify-between text-xs text-sky-200">
+        <div className="mt-4 sm:mt-5 p-3 bg-white/5 backdrop-blur-md rounded-xl sm:rounded-2xl border border-white/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 text-xs text-sky-200">
           <span className="flex items-center gap-2">
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
@@ -250,10 +250,10 @@ export default function WeatherSummary({
         </div>
       </div>
 
-      {/* Six Micro Metrics Cards Grid (Wind Compass, AQI details, UV protection, rain intensity, pressure, and visibility) */}
-      <div id="weather-micro-metrics-grid" className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      {/* Six Micro Metrics Cards Grid */}
+      <div id="weather-micro-metrics-grid" className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
         {/* Card 1: Air Quality Index */}
-        <div className="bg-[#0B0F1A] border border-slate-800/50 rounded-3xl p-6 space-y-4 shadow-xl">
+        <div className="bg-[#0B0F1A] border border-slate-800/50 rounded-2xl sm:rounded-3xl p-4 sm:p-6 space-y-4 shadow-xl">
           <div className="flex items-center justify-between">
             <h5 className="text-xs font-semibold text-slate-400 uppercase tracking-wider font-mono">Air Quality</h5>
             <span className={`px-2.5 py-0.5 rounded-full text-xs font-semibold font-mono border ${AQI_BADGE_STYLES[weather.aqi.color] || AQI_BADGE_STYLES.yellow}`}>
@@ -286,7 +286,7 @@ export default function WeatherSummary({
         </div>
 
         {/* Card 2: Wind and Flight Impact */}
-        <div className="bg-[#0B0F1A] border border-slate-800/50 rounded-3xl p-6 space-y-4 shadow-xl">
+        <div className="bg-[#0B0F1A] border border-slate-800/50 rounded-2xl sm:rounded-3xl p-4 sm:p-6 space-y-4 shadow-xl">
           <div className="flex items-center justify-between">
             <h5 className="text-xs font-semibold text-slate-400 uppercase tracking-wider font-mono">Wind & Aero</h5>
             <span className="px-2 py-0.5 bg-slate-800 border border-slate-700 text-slate-300 rounded text-[10px] font-mono">
@@ -312,7 +312,7 @@ export default function WeatherSummary({
         </div>
 
         {/* Card 3: UV Index and Dress Recommendation */}
-        <div className="bg-[#0B0F1A] border border-slate-800/50 rounded-3xl p-6 space-y-4 shadow-xl">
+        <div className="bg-[#0B0F1A] border border-slate-800/50 rounded-2xl sm:rounded-3xl p-4 sm:p-6 space-y-4 shadow-xl">
           <div className="flex items-center justify-between">
             <h5 className="text-xs font-semibold text-slate-400 uppercase tracking-wider font-mono">Sun & UV Protection</h5>
             <span className={`px-2 py-0.5 rounded border text-[10px] font-mono ${uvRisk.color}`}>
@@ -337,7 +337,7 @@ export default function WeatherSummary({
         </div>
 
         {/* Card 4: Rain & Moisture Details */}
-        <div className="bg-[#0B0F1A] border border-slate-800/50 rounded-3xl p-6 space-y-4 shadow-xl">
+        <div className="bg-[#0B0F1A] border border-slate-800/50 rounded-2xl sm:rounded-3xl p-4 sm:p-6 space-y-4 shadow-xl">
           <div className="flex items-center justify-between">
             <h5 className="text-xs font-semibold text-slate-400 uppercase tracking-wider font-mono">Precipitation & Rain</h5>
             <span className="px-2 py-0.5 bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 rounded text-[10px] font-mono">
@@ -356,7 +356,7 @@ export default function WeatherSummary({
         </div>
 
         {/* Card 5: Visibility & Logistics */}
-        <div className="bg-[#0B0F1A] border border-slate-800/50 rounded-3xl p-6 space-y-4 shadow-xl">
+        <div className="bg-[#0B0F1A] border border-slate-800/50 rounded-2xl sm:rounded-3xl p-4 sm:p-6 space-y-4 shadow-xl">
           <div className="flex items-center justify-between">
             <h5 className="text-xs font-semibold text-slate-400 uppercase tracking-wider font-mono">Logistical Visibility</h5>
             <Eye className="w-4 h-4 text-slate-400" />
@@ -375,7 +375,7 @@ export default function WeatherSummary({
         </div>
 
         {/* Card 6: Barometric Pressure */}
-        <div className="bg-[#0B0F1A] border border-slate-800/50 rounded-3xl p-6 space-y-4 shadow-xl">
+        <div className="bg-[#0B0F1A] border border-slate-800/50 rounded-2xl sm:rounded-3xl p-4 sm:p-6 space-y-4 shadow-xl">
           <div className="flex items-center justify-between">
             <h5 className="text-xs font-semibold text-slate-400 uppercase tracking-wider font-mono">Barometric Pressure</h5>
             <Gauge className="w-4 h-4 text-slate-400" />

@@ -2,12 +2,9 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "Auto-Deploy to GitHub & Vercel",
+      "label": "Deploy to GitHub & Vercel",
       "type": "shell",
-      "command": "git config --global --add safe.directory D:/Weather_Googleaistudio/aerocast-weather-portal; git add .; git commit -m 'fix: remove login page and bypass domain errors'; git push -f origin main",
-      "runOptions": {
-        "runOn": "folderOpen"
-      },
+      "command": "git config --global --add safe.directory D:/Weather_Googleaistudio/aerocast-weather-portal; git add .; git commit -m 'fix: complete mobile responsiveness overhaul for all screens'; git push -f origin main",
       "presentation": {
         "reveal": "always",
         "panel": "new"

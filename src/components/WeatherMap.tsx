@@ -218,7 +218,7 @@ export default function WeatherMap({
 
   const renderSimulatedRadar = () => {
     return (
-      <div className="relative w-full h-full bg-[#050914] overflow-hidden flex flex-col justify-between" style={{ minHeight: "320px" }}>
+      <div className="relative w-full h-full bg-[#050914] overflow-hidden flex flex-col justify-between" style={{ minHeight: "280px" }}>
         {/* Radar concentric range rings */}
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
           <div className="absolute w-[90%] h-[90%] rounded-full border border-sky-500/5 border-dashed" />
@@ -321,14 +321,14 @@ export default function WeatherMap({
   return (
     <section
       id="interactive-map-panel"
-      className={`overflow-hidden rounded-3xl border shadow-2xl transition-colors ${
+      className={`overflow-hidden rounded-2xl sm:rounded-3xl border shadow-2xl transition-colors min-w-0 ${
         isLight
           ? "border-slate-200 bg-white shadow-slate-200/60"
           : "border-slate-800/70 bg-[#0B0F1A] shadow-black/25"
       }`}
       aria-labelledby="weather-map-title"
     >
-      <div className="flex flex-col gap-3 px-5 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-6">
+      <div className="flex flex-col gap-2 sm:gap-3 px-3 py-3 sm:px-5 sm:py-4 sm:flex-row sm:items-center sm:justify-between">
         <div className="min-w-0">
           <div className="flex items-center gap-2.5">
             <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-sky-500/20 bg-sky-500/10 text-sky-500">
@@ -361,7 +361,7 @@ export default function WeatherMap({
         </div>
       </div>
 
-      <div className="relative h-[clamp(320px,48vw,460px)] min-h-[320px] w-full border-t border-slate-800/20">
+      <div className="relative h-[clamp(280px,48vw,460px)] min-h-[280px] w-full border-t border-slate-800/20">
         {(!hasGoogleMapsKey && showMapConfig) ? (
           <MapConfigurationState type="missing-key" theme={theme} onDismiss={() => setShowMapConfig(false)} />
         ) : !hasGoogleMapsKey ? (

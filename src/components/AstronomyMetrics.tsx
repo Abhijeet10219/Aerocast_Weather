@@ -115,7 +115,7 @@ export default function AstronomyMetrics({ astronomy, isLoading }: AstronomyMetr
     return (
       <div
         id="astronomy-widget-panel"
-        className="bg-[#0B0F1A] border border-slate-800/50 rounded-3xl p-6 shadow-2xl space-y-6"
+        className="bg-[#0B0F1A] border border-slate-800/50 rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-2xl space-y-6 min-w-0"
         role="status"
         aria-live="polite"
         aria-busy="true"
@@ -218,7 +218,7 @@ export default function AstronomyMetrics({ astronomy, isLoading }: AstronomyMetr
   const stargazing = getStargazingLabel(astronomy.stargazingScore);
 
   return (
-    <div id="astronomy-widget-panel" className="bg-[#0B0F1A] border border-slate-800/50 rounded-3xl p-6 shadow-2xl space-y-6">
+    <div id="astronomy-widget-panel" className="bg-[#0B0F1A] border border-slate-800/50 rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-2xl space-y-4 sm:space-y-6 min-w-0">
       
       {/* Widget Header */}
       <div>

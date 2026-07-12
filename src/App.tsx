@@ -786,7 +786,7 @@ export default function App() {
       )}
 
       {/* Authenticated Main App Frame */}
-      <div id="main-app-layout" className="flex flex-1">
+      <div id="main-app-layout" className="flex flex-col md:flex-row flex-1">
           
           <Sidebar 
             activeTab={activeTab} 

@@ -254,6 +254,21 @@ html.light-mode .aerocast-advisory-banner .text-slate-100 {
   color: #1e293b !important;
 }
 
+#app-sidebar {
+  height: 100vh !important;
+  min-height: 100vh !important;
+  max-height: 100vh !important;
+  border-radius: 0px !important;
+  top: 0 !important;
+  bottom: 0 !important;
+  left: 0 !important;
+}
+
+html.light-mode #app-sidebar {
+  background-color: #ffffff !important;
+  border-right: 1px solid #e2e8f0 !important;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

@@ -237,6 +237,16 @@ html.light-mode .hover\:bg-slate-700:hover {
   color: #0f172a !important;
 }
 
+html.light-mode .aerocast-advisory-banner {
+  background-color: rgb(224 242 254 / 0.85) !important;
+  border-color: rgb(14 165 233 / 0.2) !important;
+  color: #0f172a !important;
+}
+
+html.light-mode .aerocast-advisory-banner .text-slate-100 {
+  color: #1e293b !important;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

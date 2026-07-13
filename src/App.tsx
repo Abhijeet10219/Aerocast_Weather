@@ -75,6 +75,16 @@ const canonicalCityName = (city: string): string => {
   return city.trim();
 };
 
+const DEFAULT_CITY_KEY = "aerocast_default_city";
+
+const getSavedDefaultCity = (): string | null => {
+  try {
+    return localStorage.getItem(DEFAULT_CITY_KEY);
+  } catch {
+    return null;
+  }
+};
+
 type UnknownRecord = Record<string, unknown>;
 
 const asRecord = (value: unknown, field: string): UnknownRecord => {
@@ -306,7 +316,8 @@ export default function App() {
   // App Layout States
   const [activeTab, setActiveTab] = useState("dashboard");
   const [isLoadingWeather, setIsLoadingWeather] = useState(false);
-  const [activeCity, setActiveCity] = useState("Delhi");
+  const [activeCity, setActiveCity] = useState(() => getSavedDefaultCity() || "Delhi");
+  const [defaultCity, setDefaultCity] = useState(() => getSavedDefaultCity() || "");
   const [weather, setWeather] = useState<WeatherData | null>(null);
   const [weatherError, setWeatherError] = useState<string | null>(null);
   const [weatherRefreshToken, setWeatherRefreshToken] = useState(0);
@@ -494,6 +505,40 @@ export default function App() {
       setActiveCity(canonicalCity);
     }
   }, [activeCity]);
+
+  // Geolocation fallback: if no default city is saved, try to detect the user's location
+  useEffect(() => {
+    if (getSavedDefaultCity()) return; // already have a saved default
+    if (!navigator.geolocation) return;
+
+    navigator.geolocation.getCurrentPosition(
+      async (position) => {
+        try {
+          const { latitude, longitude } = position.coords;
+          // Reverse geocode via Nominatim to get city name from coordinates
+          const nominatimRes = await fetch(
+            `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json&accept-language=en`
+          );
+          if (nominatimRes.ok) {
+            const data = await nominatimRes.json();
+            const city = data?.address?.city || data?.address?.town || data?.address?.village || data?.address?.state;
+            if (city) {
+              const canonical = canonicalCityName(city);
+              setActiveCity(canonical);
+              triggerToast(`Detected your location: ${canonical}`, 'info');
+            }
+          }
+        } catch (err) {
+          console.warn("Reverse geocoding failed, using default city.", err);
+        }
+      },
+      () => {
+        // Geolocation denied or unavailable — stick with current default
+        console.info("Geolocation unavailable, using default city.");
+      },
+      { timeout: 8000, maximumAge: 300000 }
+    );
+  }, []);
 
   // OPEN_METEO_API_KEY remains on the server. The browser requests the
   // canonical, UI-shaped Open-Meteo response from this same-origin endpoint.
@@ -745,6 +790,18 @@ export default function App() {
     }, 4500);
   };
 
+  // Default city handler — saves to localStorage so it persists across sessions
+  const handleSetDefaultCity = (city: string) => {
+    const canonical = canonicalCityName(city);
+    try {
+      localStorage.setItem(DEFAULT_CITY_KEY, canonical);
+      setDefaultCity(canonical);
+      triggerToast(`${canonical} set as your default location.`, 'success');
+    } catch {
+      triggerToast('Failed to save default city.', 'alert');
+    }
+  };
+
   return (
     <div className={`min-h-screen font-sans flex flex-col antialiased transition-colors duration-300 w-full max-w-full overflow-x-hidden ${
       resolvedTheme === 'light' ? 'bg-slate-50 text-slate-900' : 'bg-[#020617] text-slate-200'
@@ -786,7 +843,7 @@ export default function App() {
       )}
 
       {/* Authenticated Main App Frame */}
-      <div id="main-app-layout" className="flex flex-col md:flex-row flex-1 w-full min-w-0">
+      <div id="main-app-layout" className="flex flex-col md:flex-row flex-1 w-full min-w-0 md:h-screen md:overflow-hidden">
           
           <Sidebar 
             activeTab={activeTab} 
@@ -973,6 +1030,8 @@ export default function App() {
                           triggerToast(`Synthesizing forecasts for ${nextCity}`, 'info');
                         }}
                         isLoading={isLoadingWeather}
+                        defaultCity={defaultCity}
+                        onSetDefaultCity={handleSetDefaultCity}
                       />
                     )}
 

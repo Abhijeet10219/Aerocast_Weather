@@ -21,7 +21,9 @@ import {
   ExternalLink,
   ChevronDown,
   ChevronUp,
-  MapPin
+  MapPin,
+  Star,
+  Check
 } from "lucide-react";
 
 const AQI_BADGE_STYLES: Record<string, string> = {
@@ -39,6 +41,8 @@ interface WeatherSummaryProps {
   windUnit: 'kmh' | 'mph';
   onCitySearch: (city: string) => void;
   isLoading: boolean;
+  defaultCity: string;
+  onSetDefaultCity: (city: string) => void;
 }
 
 export default function WeatherSummary({
@@ -46,7 +50,9 @@ export default function WeatherSummary({
   tempUnit,
   windUnit,
   onCitySearch,
-  isLoading
+  isLoading,
+  defaultCity,
+  onSetDefaultCity
 }: WeatherSummaryProps) {
   const [searchVal, setSearchVal] = useState("");
   const [expandedAlert, setExpandedAlert] = useState<string | null>(null);
@@ -181,6 +187,23 @@ export default function WeatherSummary({
               <span className="text-[10px] px-1.5 py-0.5 bg-white/5 border border-white/10 text-slate-300 rounded-full font-mono hidden sm:inline">
                 {Math.abs(weather.lat).toFixed(2)}°{weather.lat >= 0 ? "N" : "S"}, {Math.abs(weather.lon).toFixed(2)}°{weather.lon >= 0 ? "E" : "W"}
               </span>
+              {/* Set as Default / Default indicator */}
+              {defaultCity && defaultCity.toLowerCase() === weather.city.toLowerCase() ? (
+                <span className="inline-flex items-center gap-1 px-2 py-0.5 text-[10px] font-semibold font-mono bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 rounded-full">
+                  <Check className="w-3 h-3" />
+                  Default Location
+                </span>
+              ) : (
+                <button
+                  type="button"
+                  id="set-default-city-btn"
+                  onClick={() => onSetDefaultCity(weather.city)}
+                  className="inline-flex items-center gap-1 px-2.5 py-0.5 text-[10px] font-semibold font-mono bg-amber-500/10 text-amber-400 border border-amber-500/20 rounded-full hover:bg-amber-500/20 hover:border-amber-500/40 transition-all cursor-pointer"
+                >
+                  <Star className="w-3 h-3" />
+                  Set as Default
+                </button>
+              )}
             </div>
 
             <div className="flex items-baseline gap-3 sm:gap-4">
@@ -230,9 +253,9 @@ export default function WeatherSummary({
         </div>
 
         {/* Dynamic Advisory banner */}
-        <div className="mt-4 sm:mt-5 p-3 bg-white/5 backdrop-blur-md rounded-xl sm:rounded-2xl border border-white/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 text-xs text-sky-200">
-          <span className="flex items-center gap-2">
-            <span className="relative flex h-2 w-2">
+        <div className="aerocast-advisory-banner mt-4 sm:mt-5 p-3 bg-slate-900/60 backdrop-blur-md rounded-xl sm:rounded-2xl border border-sky-500/15 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 text-xs">
+          <span className="flex items-center gap-2 text-slate-100">
+            <span className="relative flex h-2 w-2 shrink-0">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-sky-500"></span>
             </span>

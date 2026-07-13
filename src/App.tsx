@@ -803,7 +803,7 @@ export default function App() {
   };
 
   return (
-    <div className={`min-h-screen font-sans flex flex-col antialiased transition-colors duration-300 w-full max-w-full overflow-x-hidden ${
+    <div className={`min-h-screen md:h-screen md:overflow-hidden font-sans flex flex-col antialiased transition-colors duration-300 w-full max-w-full overflow-x-hidden ${
       resolvedTheme === 'light' ? 'bg-slate-50 text-slate-900' : 'bg-[#020617] text-slate-200'
     }`}>
       <a

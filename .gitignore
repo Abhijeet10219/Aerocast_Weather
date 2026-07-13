@@ -3,7 +3,10 @@ node_modules/
 build/
 dist/
 coverage/
+tasks/
+.vscode/
 .DS_Store
 *.log
 .env*
 !.env.example
+.codex-*

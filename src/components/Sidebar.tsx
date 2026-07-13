@@ -199,10 +199,23 @@ export default function Sidebar({
         )}
       </AnimatePresence>
 
+      {/* Desktop Sidebar Placeholder to reserve layout space in flex container */}
+      <motion.div
+        className="hidden md:block shrink-0"
+        animate={{ 
+          width: isOpen ? "288px" : "80px" 
+        }}
+        transition={{ 
+          type: "spring", 
+          stiffness: 300, 
+          damping: 30 
+        }}
+      />
+
       {/* Desktop Sidebar */}
       <motion.aside 
         id="app-sidebar" 
-        className="hidden md:flex bg-[#0B0F1A] border-r border-slate-800/50 flex-col text-slate-200 h-screen sticky top-0 shrink-0 overflow-x-hidden select-none z-30 shadow-2xl shadow-black/40"
+        className="hidden md:flex bg-[#0B0F1A] border-r border-slate-800/50 flex-col text-slate-200 h-screen fixed top-0 bottom-0 left-0 shrink-0 overflow-x-hidden select-none z-30 shadow-2xl shadow-black/40"
       animate={{ 
         width: isOpen ? "288px" : "80px" 
       }}

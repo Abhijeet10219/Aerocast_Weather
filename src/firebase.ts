@@ -40,7 +40,7 @@ try {
   auth = getAuth(app);
   db = getFirestore(app);
   googleProvider = new GoogleAuthProvider();
-  console.log("Firebase initialized successfully with project ID:", firebaseConfig.projectId);
+  // Firebase initialized
 } catch (error) {
   console.error("Firebase failed to initialize. Falling back to local state storage:", error);
   isMockFirebase = true;

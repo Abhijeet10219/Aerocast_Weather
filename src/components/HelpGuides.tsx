@@ -57,32 +57,6 @@ export default function HelpGuides() {
 
   return (
     <div id="help-guides-panel" className="space-y-6 text-slate-200">
-      
-      {/* Onboarding Quick-Start cards */}
-      <div className="bg-[#0B0F1A] border border-slate-800/50 rounded-2xl sm:rounded-3xl p-3 sm:p-6 shadow-2xl space-y-4">
-        <div>
-          <h3 className="text-sm font-semibold text-white tracking-tight flex items-center gap-1.5">
-            <BookOpen className="w-4.5 h-4.5 text-sky-400" />
-            AeroCast Quick-Start Onboarding
-          </h3>
-          <p className="text-xs text-slate-400">Maximize travel logistics using automated weather sync triggers</p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {onboardingSteps.map((step, idx) => {
-            const Icon = step.icon;
-            return (
-              <div key={idx} className="p-4 bg-[#020617]/50 border border-slate-800/50 rounded-2xl space-y-2">
-                <div className="p-2 bg-sky-500/10 text-sky-400 rounded-lg w-fit">
-                  <Icon className="w-5 h-5" />
-                </div>
-                <h4 className="text-xs font-semibold text-slate-200">{step.title}</h4>
-                <p className="text-[11px] text-slate-400 leading-relaxed">{step.desc}</p>
-              </div>
-            );
-          })}
-        </div>
-      </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* Travel safety tips */}

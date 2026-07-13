@@ -11,6 +11,7 @@ import { fetchOpenMeteoDirect } from "../openMeteoDirect";
 const STREAMING_THINKING_MESSAGE = "Aerocast weather AI is thinking...";
 
 export function GeminiLogo({ className = "w-5 h-5", style }: { className?: string; style?: React.CSSProperties }) {
+  const gradId = React.useId();
   return (
     <svg 
       viewBox="0 0 100 100" 
@@ -20,7 +21,7 @@ export function GeminiLogo({ className = "w-5 h-5", style }: { className?: strin
       xmlns="http://www.w3.org/2000/svg"
     >
       <defs>
-        <radialGradient id="gemini-grad" cx="50%" cy="50%" r="50%" fx="50%" fy="10%">
+        <radialGradient id={gradId} cx="50%" cy="50%" r="50%" fx="50%" fy="10%">
           <stop offset="0%" stopColor="#ff7085" />
           <stop offset="40%" stopColor="#f59e0b" />
           <stop offset="70%" stopColor="#3b82f6" />
@@ -29,7 +30,7 @@ export function GeminiLogo({ className = "w-5 h-5", style }: { className?: strin
       </defs>
       <path 
         d="M 50,0 C 50,35 65,50 100,50 C 65,50 50,65 50,100 C 50,65 35,50 0,50 C 35,50 50,35 50,0 Z" 
-        fill="url(#gemini-grad)"
+        fill={`url(#${gradId})`}
       />
     </svg>
   );
